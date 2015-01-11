@@ -2,8 +2,6 @@
 
 namespace DrSlump;
 
-use DrSlump\Protobuf;
-
 class Protobuf
 {
     const VERSION = '@package_version@';
