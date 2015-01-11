@@ -1,0 +1,3 @@
++/man export-ignore
++/tests export-ignore
++.gitattributes export-ignore
