@@ -134,11 +134,13 @@ abstract class Message implements \ArrayAccess
 
             if ($f->isExtension()) {
                 return $f->isRepeated()
-                       ? count($this->_extensions[$name]) > 0
+                       ? ( (is_array($this->_extensions[$name]) || $this->_extensions[$name] instanceof Countable ) && count($this->_extensions[$name]) > 0)
+                       // ? count($this->_extensions[$name]) > 0
                        : $this->_extensions[$name] !== NULL;
             } else {
                 return $f->isRepeated()
-                       ? count($this->$name) > 0
+                       ? ( (is_array($this->$name) || $this->$name instanceof Countable ) && count($this->$name) > 0)
+                       /*? count($this->$name) > 0*/
                        : $this->$name !== NULL;
             }
         }
@@ -165,13 +167,14 @@ abstract class Message implements \ArrayAccess
 
         if (!$f->isExtension()) {
 
-            return $idx !== NULL
+            //return $idx !== NULL
+            return ( $idx !== NULL && is_array($this->{$name}) && isset($this->{$name}[$idx]) )
                    ? $this->{$name}[$idx]
                    : $this->$name;
 
         } else {
 
-            return $idx !== NULL
+            return ( $idx !== NULL && is_array($this->{$name}) && isset($this->{$name}[$idx]) )
                    ? $this->_extensions[$name][$idx]
                    : $this->_extensions[$name];
 
